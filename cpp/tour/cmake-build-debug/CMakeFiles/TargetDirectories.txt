@@ -1,3 +1,0 @@
-C:/Users/non_svizzero/Documents/Workspace/cpp/tour/cmake-build-debug/CMakeFiles/tour.dir
-C:/Users/non_svizzero/Documents/Workspace/cpp/tour/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/non_svizzero/Documents/Workspace/cpp/tour/cmake-build-debug/CMakeFiles/rebuild_cache.dir
