@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="home.js"></script>
+</head>
+<body onload="chiediConferma();">
+    <form>
+        <label>  <!-- https://stackoverflow.com/a/7636811 -->
+            Stringhe
+            <input type="text" onblur="manipolaStringa(this.value);">
+        </label>
+        <br>
+    </form>
+    <button onclick="gioco();">Gioca</button><br>
+</body>
+<footer>
+    <button onclick="stampaData();">Data</button>
+</footer>
+</html>
