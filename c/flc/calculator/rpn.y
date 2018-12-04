@@ -1,3 +1,9 @@
+/*
+S -> S E | ε
+E -> n
+E -> E E + | E E - | E E * | E E / | E E ^ | E -
+*/
+
 %{
 #define YYSTYPE double
 #include <math.h>
