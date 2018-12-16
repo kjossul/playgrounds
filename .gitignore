@@ -1,3 +1,6 @@
+# Commons
+*.o
+
 # C
 ## Flex & Bison
 lex.yy.c
@@ -6,3 +9,6 @@ lex.yy.c
 
 # Erlang
 *.beam
+
+# Haskell
+*.hi
