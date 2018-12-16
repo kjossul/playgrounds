@@ -10,6 +10,7 @@
 %token OP_EXP
 %token UN_MINUS
 %token NEWLINE
+%token NEG
 
 
 /* operator precedence */
