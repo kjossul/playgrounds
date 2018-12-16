@@ -21,8 +21,16 @@ instance Applicative Dupl where
   (<*>) :: Dupl (a -> b) -> Dupl a -> Dupl b
   (Dupl fs gs) <*> (Dupl xs ys) = Dupl (fs <*> xs) (gs <*> ys) 
 
+dconc :: Dupl a -> Dupl a -> Dupl a
+dconc (Dupl x1s y1s) (Dupl x2s y2s) = Dupl (x1s ++ x2s) (y1s ++ y2s)
+
+dconcat :: Dupl (Dupl a) -> Dupl a
+dconcat = foldr dconc (Dupl [] [])
+
+dconcatMap :: (a -> Dupl b) -> Dupl a -> Dupl b
+dconcatMap f d = dconcat $ fmap f d
+
 instance Monad Dupl where
   (>>=) :: Dupl a -> (a -> Dupl b) -> Dupl b
-  (Dupl xs ys) >>= f = head $ map f xs
-                           
+  d >>= f = dconcatMap f d
 
