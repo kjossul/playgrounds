@@ -2,7 +2,7 @@
 
 module Ex20180905 where
 
-apply f a = f a
+import Data.Semigroup
 
 data Dupl a = Dupl [a] [a] deriving (Eq, Show)
 
@@ -21,16 +21,23 @@ instance Applicative Dupl where
   (<*>) :: Dupl (a -> b) -> Dupl a -> Dupl b
   (Dupl fs gs) <*> (Dupl xs ys) = Dupl (fs <*> xs) (gs <*> ys) 
 
-dconc :: Dupl a -> Dupl a -> Dupl a
-dconc (Dupl x1s y1s) (Dupl x2s y2s) = Dupl (x1s ++ x2s) (y1s ++ y2s)
+instance Semigroup (Dupl a) where
+  (Dupl x1s y1s) <> (Dupl x2s y2s) = Dupl (x1s ++ x2s) (y1s ++ y2s)
 
-dconcat :: Dupl (Dupl a) -> Dupl a
-dconcat = foldr dconc (Dupl [] [])
+instance Monoid (Dupl a) where
+  mempty = Dupl [] []
+  mappend = (<>)
+
+dconc :: Dupl a -> Dupl a -> Dupl a
+dconc = (<>)
+
+dconcat :: Foldable t => t (Dupl a) -> Dupl a
+dconcat = foldr (<>) mempty
 
 dconcatMap :: (a -> Dupl b) -> Dupl a -> Dupl b
 dconcatMap f d = dconcat $ fmap f d
 
 instance Monad Dupl where
   (>>=) :: Dupl a -> (a -> Dupl b) -> Dupl b
-  d >>= f = dconcatMap f d
+  d >>= f = foldr (<>) mempty $ fmap f d
 
