@@ -1,6 +1,9 @@
 # Commons
 *.o
 
+# IDE
+.idea/
+
 # C
 ## Flex & Bison
 lex.yy.c
@@ -12,3 +15,5 @@ lex.yy.c
 
 # Haskell
 *.hi
+
+
