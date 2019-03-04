@@ -16,4 +16,5 @@ lex.yy.c
 # Haskell
 *.hi
 
-
+# Java
+out/
