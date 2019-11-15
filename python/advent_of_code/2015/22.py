@@ -50,11 +50,15 @@ class Shield(Spell):
     def __init__(self):
         super().__init__(cost=113, duration=6)
         self.armor = 7
+        self.saved = 0
 
     def cast(self, s, t):
         super().cast(s, t)
-        self.saved = s.armor
         s.armor += self.armor
+
+    def wear_off(self, s, t):
+        super().wear_off(s, t)
+        s.armor = self.saved
 
 class Poison(Spell):
     def __init__(self):
