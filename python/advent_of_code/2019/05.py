@@ -1,4 +1,4 @@
-INPUT = 5
+INPUT = 1
 
 
 def add(ns, i, *args):
@@ -51,7 +51,7 @@ def execute(ns):
         elif opcode == '03':
             params = (ns[i + 1],)
         elif opcode == '04':
-            params = (ns[ns[i + 1]],)
+            params = (ns[ns[i + 1]],) if instruction[2] == '0' else (ns[i+1],)
         else:
             params = (ns[i + j] if mode == '1' or j == 3 else ns[ns[i + j]]
                       for j, mode in enumerate(instruction[2::-1], start=1))
