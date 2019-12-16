@@ -15,7 +15,7 @@ class Game:
         :param hashfun: hash function for each state (to compute already visited states)
         :param stop: whether to terminate execution after first solution is found
         """
-        self.h = h if h else self.bfs
+        self.h = h if h else Game.bfs
         self.min_h = min_h
         self.states = defaultdict(list, {self.h(s0, 0): [((s0,), 0)]})
         self.visited = set()
@@ -26,10 +26,12 @@ class Game:
         self.stop = stop
         self.save_path = save_path
 
-    def bfs(self, state, step):
+    @staticmethod
+    def bfs(state, step):
         return -step
 
-    def dfs(self, state, step):
+    @staticmethod
+    def dfs(state, step):
         return step
 
     def hashfun(self, state):
@@ -46,7 +48,7 @@ class Game:
                 del self.states[k]
                 continue
             except ValueError:
-                print(f"No solution found after examining {len(self.visited)} states.")
+                print(f"Seatch stopped. Total unique states: {len(self.visited)}.")
                 return solutions
 
             s = ss[-1]
