@@ -39,7 +39,7 @@ def h1(s, step):
 if __name__ == '__main__':
     game1 = Game(s0, f, t, step='', h=h, hashfun=hashfun)
     print(game1.solve()[1])
-    game2 = Game(s0, f, t, step='', h=h1, hashfun=hashfun, stop=False)
+    game2 = Game(s0, f, t, step='', h=h1, hashfun=hashfun, stop_condition=False)
     longest = ''
     for s, steps in game2.solve():
         if len(steps) > len(longest):

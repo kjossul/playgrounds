@@ -54,7 +54,7 @@ if __name__ == '__main__':
     program = intcode.IntCode.from_file("15.txt")
     robot = Robot(program)
 
-    game = Game(robot.s0, robot.explore, robot.is_goal, stop=False)
+    game = Game(robot.s0, robot.explore, robot.is_goal, stop_condition=False)
     s = game.solve()
     print(s)
     time = robot.fill_oxygen()
