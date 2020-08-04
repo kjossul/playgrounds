@@ -4,8 +4,8 @@ import numpy as np
 
 
 class Board:
-    SIZE = 64  # guaranteed to be solved for powers of 2
-    BITS = int(np.log2(SIZE))
+    SIZE = 64  # guaranteed to be solved 
+    BITS = np.math.ceil(np.log2(SIZE))
 
     def __init__(self):
         self.coins = np.random.randint(2, size=self.SIZE)
