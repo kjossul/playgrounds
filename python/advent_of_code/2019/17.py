@@ -40,22 +40,12 @@ class State:
             if self.is_invalid():
                 raise StopIteration
             self.visited.add(t)
-            fr = self.find_rotation(-1)
-            fl = self.find_rotation(1)
-            new_program = self.main_program.copy()
-            new_program.add_instruction(tuple(self.directions[-2:]))
-            r = State(self.pos + self.MOVES[fr], fr, self.directions + ['R', 1], self.visited.copy(),
-                      intersections=self.intersections.copy(), main_program=new_program)
-            l = State(self.pos + self.MOVES[fl], fl, self.directions + ['L', 1], self.visited.copy(),
-                      intersections=self.intersections.copy(), main_program=new_program.copy())
-            r.complete_branch()
-            l.complete_branch()
+
             self.pos += self.MOVES[self.facing]
             self.directions[-1] += 1
             self.complete_branch()
             yield self
-            yield l
-            yield r
+
 
         else:
             self.complete_branch()

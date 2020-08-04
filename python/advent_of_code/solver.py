@@ -4,7 +4,7 @@ from collections import defaultdict
 
 class Game:
     def __init__(self, s0, f, t, h=None, min_h=False, step_limit=None, hashfun=None,
-                 save_path=False, solution_limit=None):
+                 save_path=False, solution_limit=1, verbose=False):
         """
         :param s0: initial state
         :param f: function that explores reachable states
@@ -29,6 +29,7 @@ class Game:
         self.save_path = save_path
         self.active_nodes = 1
         self.total_visited = 0
+        self.verbose = verbose
 
     @staticmethod
     def bfs(state, step):
@@ -53,25 +54,33 @@ class Game:
                 del self.states[k]
                 continue
             except ValueError:
-                print(f"\nNo more states to visit.")
-                print(f"Search stopped. Total unique states: {len(self.visited)}. {len(solutions)} solutions found")
+                if self.verbose:
+                    print(f"\nSearch stopped. Total unique states: {len(self.visited)}. {len(solutions)} solutions found")
                 return solutions
             s = ss[-1]
             h = self.hashfun(s)
-            sys.stdout.write('\r' + f"active: {self.active_nodes:6}, visited:{self.total_visited:6}, current h(s): {k}")
+            if self.verbose:
+                sys.stdout.write('\r' + f"active: {self.active_nodes:6}, visited:{self.total_visited:6}, current h(s): {k}")
             if h in self.visited or (self.step_limit and step > self.step_limit):
                 continue
             else:
                 self.total_visited += 1
                 self.visited.add(h)
             if self.t(s):
-                solutions.append((ss, step))
-                print(f"\nSolution found! {s}")
-                if self.solution_limit is not None and self.solution_limit >= len(solutions):
-                    print(f"Search stopped. Total unique states: {len(self.visited)}. {len(solutions)} solutions found")
+                solutions.append(Solution(ss, step))
+                if self.solution_limit is not None and self.solution_limit == len(solutions):
+                    if self.verbose:
+                        print(f"\nSearch stopped. Total unique states: {len(self.visited)}. {len(solutions)} solutions found")
                     return solutions
             else:
                 for new_s in self.f(s):
                     new_path = ss + (new_s,) if self.save_path else (new_s,)
                     self.states[self.h(new_s, step + 1)].append((new_path, step + 1))
                     self.active_nodes += 1
+
+
+class Solution:
+    def __init__(self, history, step):
+        self.state = history[-1]
+        self.step = step
+        self.history = history
