@@ -1,6 +1,6 @@
 # Commons
 *.o
-
+target/
 # IDE
 .idea/
 
