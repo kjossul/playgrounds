@@ -6,7 +6,7 @@ fn main() {
 
     Here we have moved s1, and after s2 declaration we can no longer access it. This is to prevent double free problems
     Basically there is no shallow copy for data on the heap, just moving
-    bools, integers, float, char and tuples are all stored on the stack and thus get not moved
+    bools, integers, float, char and tuples are all stored on the stack and thus don't get moved
     */
 
     let s1 = String::from("Hello");
