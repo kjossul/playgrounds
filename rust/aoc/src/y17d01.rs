@@ -6,18 +6,18 @@ pub fn input_generator(input: &str) -> Vec<u8> {
 }
 
 #[aoc(day1, part1)]
-pub fn part1(digits: &Vec<u8>) -> u32 {
+pub fn part1(digits: &[u8]) -> u32 {
     let f = |i, n| (n + i - 1) % n;
     solver(digits, f)
 }
 
 #[aoc(day1, part2)]
-pub fn part2(digits: &Vec<u8>) -> u32 {
+pub fn part2(digits: &[u8]) -> u32 {
     let f = |i, n| (i + n / 2) % n;
     solver(digits, f)
 }
 
-fn solver(digits: &Vec<u8>, f: fn(usize, usize) -> usize) -> u32 {
+fn solver(digits: &[u8], f: fn(usize, usize) -> usize) -> u32 {
     let n = digits.len();
     digits
         .iter()
