@@ -5,7 +5,7 @@ pub struct Grid<T> {
     cells: HashMap<(isize, isize), T>,
 }
 
-impl<T: Copy> Grid<T> {
+impl<T> Grid<T> {
     pub fn new() -> Self {
         Self { cells: HashMap::new() }
     }
