@@ -49,7 +49,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test() {
+    fn y17d05test() {
         assert_eq!(part1(&generator("0\n3\n0\n1\n-3")), 5);
     }
 }

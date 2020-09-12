@@ -34,7 +34,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test() {
+    fn y17d01test() {
         assert_eq!(part1(&input_generator("1122")), 3);
         assert_eq!(part1(&input_generator("1111")), 4);
         assert_eq!(part1(&input_generator("1234")), 0);

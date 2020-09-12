@@ -72,7 +72,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test() {
+    fn y17d03test() {
         assert_eq!(part1("1"), 0);
         assert_eq!(part1("12"), 3);
         assert_eq!(part1("23"), 2);

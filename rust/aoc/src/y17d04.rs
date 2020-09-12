@@ -38,7 +38,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test() {
+    fn y17d04test() {
         assert_eq!(part1(&generator("aa bb cc dd aa")), 0);
         assert_eq!(part1(&generator("aa bb cc dd aaa")), 1);
         assert_eq!(part2(&generator("abcde xyz ecdab")), 0);

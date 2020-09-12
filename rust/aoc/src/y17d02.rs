@@ -47,7 +47,7 @@ mod tests {
     use indoc::indoc;
 
     #[test]
-    fn test() {
+    fn y17d02test() {
         let s1 = indoc! {"
             5 1 9 5
             7 5 3
