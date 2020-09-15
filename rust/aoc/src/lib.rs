@@ -17,5 +17,6 @@ pub mod y17d12;
 pub mod y17d13;
 pub mod y17d14;
 pub mod y17d15;
+pub mod y17d16;
 
 aoc_lib!{ year = 2017 }

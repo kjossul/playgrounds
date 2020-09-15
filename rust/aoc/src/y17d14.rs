@@ -12,7 +12,7 @@ pub fn part1(input: &str) -> usize {
 pub fn part2(input: &str) -> usize {
     let result = solver(input);
     let maze = Grid::from_maze_matrix(result, |&c| c == '0');
-    let graph_map = maze.get_maze_graph(true);
+    let graph_map = maze.get_maze_graph();
     connected_components(&graph_map)
 }
 

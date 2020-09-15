@@ -24,12 +24,10 @@ impl<T> Grid<T> {
         s
     }
 
-    pub fn get_maze_graph(&self, add_self_cycle: bool) -> UnGraphMap<(isize, isize), ()> {
+    pub fn get_maze_graph(&self) -> UnGraphMap<(isize, isize), ()> {
         let mut graph = UnGraphMap::new();
         for &(x1, y1) in self.cells.keys() {
-            if add_self_cycle {
-                graph.add_edge((x1, y1), (x1, y1), ());
-            }
+            graph.add_node((x1, y1));
             for (x2, y2) in self.adjacent_coords(x1, y1) {
                 graph.add_edge((x1, y1), (x2, y2), ());
             }
