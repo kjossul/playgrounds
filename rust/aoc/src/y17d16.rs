@@ -54,8 +54,6 @@ fn f(v: &mut Vec<char>, input: &str) {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-
     #[test]
     pub fn y17d16test() {
 //        assert_eq!(part2("s1,x3/4,pe/b"), "");

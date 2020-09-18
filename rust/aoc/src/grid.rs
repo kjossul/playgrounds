@@ -4,7 +4,15 @@ use petgraph::graphmap::UnGraphMap;
 
 #[derive(Debug)]
 pub struct Grid<T> {
-    cells: HashMap<(isize, isize), T>,
+    pub cells: HashMap<(isize, isize), T>,
+}
+
+#[derive(PartialEq, Clone, Copy)]
+pub enum Direction {
+    E,
+    N,
+    W,
+    S,
 }
 
 impl<T> Grid<T> {
@@ -28,7 +36,7 @@ impl<T> Grid<T> {
         let mut graph = UnGraphMap::new();
         for &(x1, y1) in self.cells.keys() {
             graph.add_node((x1, y1));
-            for (x2, y2) in self.adjacent_coords(x1, y1) {
+            for (x2, y2, _) in self.adjacent_coords(x1, y1) {
                 graph.add_edge((x1, y1), (x2, y2), ());
             }
         }
@@ -51,12 +59,13 @@ impl<T> Grid<T> {
             .collect()
     }
 
-    pub fn adjacent_coords(&self, x: isize, y: isize) -> Vec<(isize, isize)> {
+    pub fn adjacent_coords(&self, x: isize, y: isize) -> Vec<(isize, isize, Direction)> {
         // like neighbors but doesn't count diagonals
+        let directions = [Direction::E, Direction::N, Direction::W, Direction::S];
         let offsets = [(1, 0), (0, -1), (-1, 0), (0, 1)];
-        offsets.iter()
-            .map(|(i, j)| (x + i, y + j))
-            .filter(|t| self.cells.contains_key(t))
+        offsets.iter().zip(directions.iter())
+            .map(|((i, j), d)| (x + i, y + j, *d))
+            .filter(|&(x, y, _)| self.cells.contains_key(&(x, y)))
             .collect()
     }
 }
