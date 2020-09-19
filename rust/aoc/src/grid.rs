@@ -7,7 +7,7 @@ pub struct Grid<T> {
     pub cells: HashMap<(isize, isize), T>,
 }
 
-#[derive(PartialEq, Clone, Copy)]
+#[derive(Debug, PartialEq, Clone, Copy)]
 pub enum Direction {
     E,
     N,
@@ -67,5 +67,59 @@ impl<T> Grid<T> {
             .map(|((i, j), d)| (x + i, y + j, *d))
             .filter(|&(x, y, _)| self.cells.contains_key(&(x, y)))
             .collect()
+    }
+
+    pub fn get_adjacent_coord(&self, x: isize, y: isize, d: Direction) -> (isize, isize) {
+        match d {
+            Direction::E => (x + 1, y),
+            Direction::N => (x, y - 1),
+            Direction::W => (x - 1, y),
+            Direction::S => (x, y + 1),
+        }
+    }
+}
+
+impl Grid<char> {
+//    pub fn print(&self) {
+//        let (mut minx, mut maxx, mut miny, mut maxy) = (0_f32, 0_f32, 0_f32, 0_f32);
+//        for &(x, y) in self.cells.keys() {
+//            minx = minx.min(x as f32);
+//            miny = miny.min(y as f32);
+//            maxx = maxx.max(x as f32);
+//            maxy = maxy.max(y as f32);
+//        }
+//        for y in miny as isize..=maxy as isize {
+//            for x in minx as isize..=maxx as isize {
+//                print!("{}", self.get(x, y).unwrap_or(&' '));
+//            }
+//            println!();
+//        }
+//    }
+}
+
+impl Direction {
+    pub fn turn_left(d: Direction) -> Direction {
+        match d {
+            Direction::E => Direction::N,
+            Direction::N => Direction::W,
+            Direction::W => Direction::S,
+            Direction::S => Direction::E,
+        }
+    }
+    pub fn turn_right(d: Direction) -> Direction {
+        match d {
+            Direction::E => Direction::S,
+            Direction::N => Direction::E,
+            Direction::W => Direction::N,
+            Direction::S => Direction::W,
+        }
+    }
+    pub fn reverse(d: Direction) -> Direction {
+        match d {
+            Direction::E => Direction::W,
+            Direction::N => Direction::S,
+            Direction::W => Direction::E,
+            Direction::S => Direction::N,
+        }
     }
 }
