@@ -25,6 +25,8 @@ pub mod y17d20;
 pub mod y17d21;
 pub mod y17d22;
 pub mod y17d23;
+pub mod y17d24;
+pub mod y17d25;
 
 
-aoc_lib!{ year = 2017 }
+aoc_lib! { year = 2017 }
