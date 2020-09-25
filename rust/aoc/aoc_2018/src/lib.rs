@@ -1,10 +1,11 @@
 #[macro_use]
 extern crate aoc_runner_derive;
 
+pub mod grid;
 pub mod y18d01;
 pub mod y18d02;
-//pub mod y17d03;
-//pub mod y17d04;
+pub mod y18d03;
+pub mod y18d04;
 //pub mod y17d05;
 //pub mod y17d06;
 //pub mod y17d07;
