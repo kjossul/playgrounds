@@ -78,7 +78,7 @@ impl<T> Grid<T> {
         }
     }
 
-    pub fn print(&self, f: fn(Option<&T>) -> char) {
+    pub fn get_bounds(&self) -> Vec<isize> {
         let (mut minx, mut maxx, mut miny, mut maxy) = (isize::MAX, isize::MIN, isize::MAX, isize::MIN);
         for &(x, y) in self.cells.keys() {
             minx = std::cmp::min(minx, x);
@@ -86,6 +86,11 @@ impl<T> Grid<T> {
             maxx = std::cmp::max(maxx, x);
             maxy = std::cmp::max(maxy, y);
         }
+        vec![minx, miny, maxx, maxy]
+    }
+
+    pub fn print(&self, f: fn(Option<&T>) -> char) {
+        let (minx, miny, maxx, maxy) = self.get_bounds().into_iter().next_tuple().unwrap();
         for y in miny..=maxy {
             for x in minx..=maxx {
                 print!("{}", f(self.get(x, y)));

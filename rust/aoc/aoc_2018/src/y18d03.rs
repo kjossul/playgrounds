@@ -49,6 +49,6 @@ mod tests {
             #2 @ 3,1: 4x4
             #3 @ 5,5: 2x2
         "};
-        assert_eq!(part1(&gen(s)), 5);
+        assert_eq!(part1(&gen(s)), 4);
     }
 }
