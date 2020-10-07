@@ -2,12 +2,12 @@ use std::collections::HashMap;
 use itertools::Itertools;
 use petgraph::graphmap::UnGraphMap;
 
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct Grid<T> {
     pub cells: HashMap<(isize, isize), T>,
 }
 
-#[derive(Debug, PartialEq, Clone, Copy)]
+#[derive(Debug, Ord, PartialOrd, Eq, PartialEq, Clone, Copy)]
 pub enum Direction {
     E,
     N,
