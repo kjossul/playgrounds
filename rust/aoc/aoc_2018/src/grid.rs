@@ -51,6 +51,8 @@ impl<T> Grid<T> {
         self.cells.insert((x, y), v)
     }
 
+    pub fn remove(&mut self, x: isize, y: isize) -> Option<T> { self.cells.remove(&(x, y)) }
+
     pub fn neighbors(&self, x: isize, y: isize) -> Vec<&T> {
         let deltas = [-1, 0, 1];
         deltas.iter().cartesian_product(deltas.iter())
@@ -59,8 +61,15 @@ impl<T> Grid<T> {
             .collect()
     }
 
-    pub fn adjacent_coords(&self, x: isize, y: isize) -> Vec<(isize, isize, Direction)> {
+    pub fn adjacent_neighbors(&self, x: isize, y: isize) -> Vec<(Option<&T>, Direction)> {
         // like neighbors but doesn't count diagonals
+        let directions = [Direction::E, Direction::N, Direction::W, Direction::S];
+        let offsets = [(1, 0), (0, -1), (-1, 0), (0, 1)];
+        offsets.iter().zip(directions.iter())
+            .map(|((i, j), d)| (self.get(x + i, y + j), *d))
+            .collect()
+    }
+    pub fn adjacent_coords(&self, x: isize, y: isize) -> Vec<(isize, isize, Direction)> {
         let directions = [Direction::E, Direction::N, Direction::W, Direction::S];
         let offsets = [(1, 0), (0, -1), (-1, 0), (0, 1)];
         offsets.iter().zip(directions.iter())
