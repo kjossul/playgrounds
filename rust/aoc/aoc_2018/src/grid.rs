@@ -2,12 +2,12 @@ use std::collections::HashMap;
 use itertools::Itertools;
 use petgraph::graphmap::UnGraphMap;
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Eq, PartialEq)]
 pub struct Grid<T> {
     pub cells: HashMap<(isize, isize), T>,
 }
 
-#[derive(Debug, Ord, PartialOrd, Eq, PartialEq, Clone, Copy)]
+#[derive(Debug, Ord, PartialOrd, Eq, PartialEq, Clone, Copy, Hash)]
 pub enum Direction {
     E,
     N,
@@ -77,6 +77,13 @@ impl<T> Grid<T> {
             .filter(|&(x, y, _)| self.cells.contains_key(&(x, y)))
             .collect()
     }
+    pub fn adjacent_coords_unfiltered(&self, x: isize, y: isize) -> Vec<(isize, isize, Direction)> {
+        let directions = [Direction::E, Direction::N, Direction::W, Direction::S];
+        let offsets = [(1, 0), (0, -1), (-1, 0), (0, 1)];
+        offsets.iter().zip(directions.iter())
+            .map(|((i, j), d)| (x + i, y + j, *d))
+            .collect()
+    }
 
     pub fn get_adjacent_coord(&self, x: isize, y: isize, d: Direction) -> (isize, isize) {
         match d {
@@ -134,4 +141,9 @@ impl Direction {
             Direction::S => Direction::N,
         }
     }
+}
+
+
+pub fn manh_distance(x1: isize, y1: isize, x2: isize, y2: isize) -> isize {
+    (x1 - x2).abs() + (y1 - y2).abs()
 }
