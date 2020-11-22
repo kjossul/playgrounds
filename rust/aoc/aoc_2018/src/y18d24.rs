@@ -37,7 +37,7 @@ impl Group {
     fn find_target<'a>(&self, groups: &HashMap<isize, Group>, targets: &HashMap<isize, isize>) -> Option<isize> {
         groups.values()
             .filter(|g| {
-                self.is_infection != g.is_infection && g.is_alive() && targets.values().find(|&&id| id == g.id).is_none()
+                self.is_infection != g.is_infection && g.is_alive() && targets.values().find(|&&id| id == g.id).is_none() && self.scan(g) > 0
             }).map(|g| g.id)
             .max_by_key(|id| {
                 let def = groups.get(id).unwrap();
@@ -51,13 +51,14 @@ impl Group {
         if other.weak.iter().find(|&&e| e == self.atk_t).is_some() {
             damage *= 2;
         } else if other.immune.iter().find(|&&e| e == self.atk_t).is_some() {
-            damage /= 2;
+            damage = 0;
         }
         damage
     }
 
     fn receive_dmg(&mut self, dmg: isize) {
         self.units -= dmg / self.hp;
+        self.units = isize::max(self.units, 0);
 //        println!("{} killed, {} remaining", dmg / self.hp, self.units);
     }
 }
@@ -73,7 +74,6 @@ pub fn part1(input: &str) -> isize {
 pub fn part2(input: &str) -> isize {
     unsafe {
         loop {
-            dbg!(BOOST);
             let gz = parser(input);
             let (imm, _inf) = solver(gz);
             if imm > 0 {
@@ -91,10 +91,10 @@ fn solver(mut gz: Vec<Group>) -> (isize, isize) {
     let (mut old_system, mut old_infection) = (0, 0);
     loop {
         let system_units = groups.values().filter(|g| {
-            !g.is_infection && g.is_alive()
+            !g.is_infection
         }).map(|g| g.units).sum();
         let infection_units = groups.values().filter(|g| {
-            g.is_infection && g.is_alive()
+            g.is_infection
         }).map(|g| g.units).sum();
         if system_units <= 0 || infection_units <= 0 {
             return (system_units, infection_units);

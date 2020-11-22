@@ -26,7 +26,7 @@ pub mod y18d21;
 pub mod y18d22;
 pub mod y18d23;
 pub mod y18d24;
-//pub mod y18d25;
+pub mod y18d25;
 
 
 aoc_lib! { year = 2018 }
