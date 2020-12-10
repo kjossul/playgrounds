@@ -1,5 +1,7 @@
 #[macro_use]
 extern crate aoc_runner_derive;
+#[macro_use]
+extern crate smart_default;
 
 pub mod grid;
 pub mod y20d01;
@@ -9,9 +11,9 @@ pub mod y20d04;
 pub mod y20d05;
 pub mod y20d06;
 pub mod y20d07;
-//pub mod y20d08;
-//pub mod y20d09;
-//pub mod y20d10;
+pub mod y20d08;
+pub mod y20d09;
+pub mod y20d10;
 //pub mod y20d11;
 //pub mod y20d12;
 //pub mod y20d13;
