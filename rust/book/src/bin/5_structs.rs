@@ -26,8 +26,6 @@ impl User {  // implementation block
     }
 }
 
-struct Color(i32, i32, i32);  // struct tuple, unnamed fields
-
 fn main() {
     let mut user1 = create_user(String::from("Foo"), String::from("bar@baz"));
     user1.sign_in_count = 3;
