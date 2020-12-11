@@ -143,6 +143,12 @@ impl Direction {
     }
 }
 
+impl Grid<char> {
+    pub fn from_string_grid(input: &str) -> Grid<char> {
+        let v = input.lines().map(|l| l.chars().collect::<Vec<_>>()).collect::<Vec<_>>();
+        Self::from_maze_matrix(v, |_| false)
+    }
+}
 
 pub fn manh_distance(x1: isize, y1: isize, x2: isize, y2: isize) -> isize {
     (x1 - x2).abs() + (y1 - y2).abs()
