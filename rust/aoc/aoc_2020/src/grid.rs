@@ -85,15 +85,6 @@ impl<T> Grid<T> {
             .collect()
     }
 
-    pub fn get_adjacent_coord(&self, x: isize, y: isize, d: Direction) -> (isize, isize) {
-        match d {
-            Direction::E => (x + 1, y),
-            Direction::N => (x, y - 1),
-            Direction::W => (x - 1, y),
-            Direction::S => (x, y + 1),
-        }
-    }
-
     pub fn get_bounds(&self) -> Vec<isize> {
         let (mut minx, mut maxx, mut miny, mut maxy) = (isize::MAX, isize::MIN, isize::MAX, isize::MIN);
         for &(x, y) in self.cells.keys() {
@@ -147,6 +138,16 @@ impl Grid<char> {
     pub fn from_string_grid(input: &str) -> Grid<char> {
         let v = input.lines().map(|l| l.chars().collect::<Vec<_>>()).collect::<Vec<_>>();
         Self::from_maze_matrix(v, |_| false)
+    }
+}
+
+
+pub fn get_adjacent_coord(x: isize, y: isize, d: Direction) -> (isize, isize) {
+    match d {
+        Direction::E => (x + 1, y),
+        Direction::N => (x, y - 1),
+        Direction::W => (x - 1, y),
+        Direction::S => (x, y + 1),
     }
 }
 
